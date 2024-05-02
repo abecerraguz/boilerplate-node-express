@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texto a Voz</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Convertir texto a voz con jQuery y Web Speech API</h1>
+    <p id="textoParaLeer">Este es un ejemplo de texto que se convertirá en audio.</p>
+    <button id="hablar">¡Hablar!</button>
+
+    <script>
+        $(document).ready(function() {
+            var synth = window.speechSynthesis;
+
+            $('#hablar').click(function() {
+                var texto = $('#textoParaLeer').text();
+                var utterThis = new SpeechSynthesisUtterance(texto);
+                
+                utterThis.onend = function (event) {
+                    console.log('SpeechSynthesisUtterance.onend');
+                }
+
+                utterThis.onerror = function (event) {
+                    console.error('SpeechSynthesisUtterance.onerror');
+                }
+
+                synth.speak(utterThis);
+            });
+        });
+    </script>
+</body>
+</html>
